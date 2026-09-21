@@ -1,0 +1,266 @@
+======================================================================
+                         SENTINELCHAIN AI
+                    From Alert to Attack Story
+======================================================================
+[✓] Connecting to Wazuh complete.
+[✓] Retrieving latest security alert complete.
+[✓] Parsing security event complete.
+[✓] Building investigation case complete.
+[✓] Analyzing alert complete.
+[✓] Reviewing available evidence complete.
+[✓] Extracting indicators complete.
+[✓] Checking threat intelligence complete.
+[✓] Analyzing threat intelligence complete.
+[✓] Correlating investigation findings complete.
+[✓] Performing deep investigation complete.
+[✓] Performing counter-analysis complete.
+[✓] Determining final security verdict complete.
+
+======================================================================
+                    INVESTIGATION REPORT
+                       SENTINELCHAIN AI
+======================================================================
+
+----------------------------------------------------------------------
+CASE INFORMATION
+----------------------------------------------------------------------
+Case ID        : SC-0001
+Status         : OPEN
+Alert ID       : 1789473144.109911
+Timestamp      : 2026-09-15T11:52:24.945Z
+Rule ID        : 5763
+Rule Severity  : 10
+Rule            : sshd: brute force trying to get access to the system. Authentication failed.
+
+----------------------------------------------------------------------
+WHAT HAPPENED
+----------------------------------------------------------------------
+
+The sshd service detected multiple authentication failures attempting to access the UbuntuHost system, targeting user 'yash' via SSH. The event is categorized as a brute force attack based on the rule and MITRE technique, but no successful login or additional evidence was found.
+
+----------------------------------------------------------------------
+ENDPOINT INFORMATION
+----------------------------------------------------------------------
+Agent Name     : UbuntuHost
+Agent ID       : 004
+Agent IP       : 10.68.224.38
+Hostname       : ubuntuhost
+
+----------------------------------------------------------------------
+NETWORK INFORMATION
+----------------------------------------------------------------------
+Source IP      : 10.68.224.10
+Source Port    : 39192
+Destination IP : None
+Protocol       : None
+
+----------------------------------------------------------------------
+INITIAL TRIAGE
+----------------------------------------------------------------------
+Category       : AUTHENTICATION
+Priority       : HIGH
+Investigation  : YES
+
+Summary:
+  The sshd service detected multiple authentication failures attempting to access the UbuntuHost system, targeting user 'yash' via SSH. The event is categorized as a brute force attack based on the rule and MITRE technique, but no successful login or additional evidence was found.
+
+Reason:
+  The alert indicates repeated failed authentication attempts (brute force) against the SSH service, which is a high-severity event (rule level 10). While the MITRE technique 'Brute Force' (T1110) is associated with credential access, the lack of evidence (empty evidence/timeline fields) and incomplete network details (no destination IP/port) necessitate further investigation to confirm if the attempt was part of a broader attack or a false positive. The target user 'yash' may require additional scrutiny for potential compromise.
+
+----------------------------------------------------------------------
+EVIDENCE ANALYSIS
+----------------------------------------------------------------------
+
+Evidence Found:
+  • Security alert with rule ID 5763 indicating sshd brute force attack with failed authentication attempts
+  • Endpoint details: UbuntuHost (agent_id 004, IP 10.68.224.38, hostname ubuntuhost)
+  • Process information: sshd-session process (PID 9291)
+  • MITRE technique T1110 (Brute Force) under Credential Access tactic
+
+Evidence Missing:
+  • Destination IP and port information in network data
+  • Authentication result details
+  • Timeline entries
+  • Additional evidence entries
+  • Threat intelligence data
+  • Findings documentation
+
+Observations:
+  • The alert indicates multiple failed SSH authentication attempts targeting user 'yash' on the UbuntuHost endpoint
+  • Source IP 10.68.224.10 is identified but destination IP/port information is missing
+  • No successful login or additional malicious activity evidence is present
+  • MITRE technique T1110 (Brute Force) is associated with the event but requires further validation
+  • The absence of evidence in the 'evidence' and 'timeline' fields limits forensic analysis
+  • User 'yash' should be prioritized for account activity verification due to targeted attack
+  • The lack of network destination details makes it uncertain whether this is part of a larger attack pattern
+
+----------------------------------------------------------------------
+THREAT INTELLIGENCE
+----------------------------------------------------------------------
+
+Indicators Checked:
+  • IP: 10.68.224.10
+    Source : Threat intelligence data
+    Result : abuse_confidence_score: 0, total_reports: 0, usage_type: Reserved
+  • IP: 10.68.224.38
+    Source : Threat intelligence data
+    Result : abuse_confidence_score: 0, total_reports: 0, usage_type: Reserved
+
+Threat Intelligence Findings:
+  • Both IP addresses (10.68.224.10 and 10.68.224.38) are marked as 'Reserved' with no abuse reports, indicating they are not publicly attributable to malicious activity.
+  • No malicious reputation or threat intelligence matches were found for the identified IP addresses.
+
+Summary:
+  The threat intelligence data indicates that both the source IP (10.68.224.10) and endpoint IP (10.68.224.38) are reserved and have no malicious reputation. This does not confirm or deny the legitimacy of the SSH brute force attempt but suggests the IPs are not associated with known malicious activity in public threat intelligence sources.
+
+----------------------------------------------------------------------
+CORRELATION ANALYSIS
+----------------------------------------------------------------------
+
+Correlations:
+  • No meaningful correlations identified.
+
+Supporting Evidence:
+  • MITRE technique T1110 (Brute Force) is explicitly linked to the alert rule ID 5763
+  • The alert's source IP (10.68.224.10) and endpoint IP (10.68.224.38) are both marked as 'Reserved' in threat intelligence
+  • The targeted user 'yash' is explicitly mentioned in the authentication context
+
+Contradicting Evidence:
+  • None identified.
+
+Observed Patterns:
+  • The MITRE technique T1110 (Brute Force) is associated with the alert but requires validation due to incomplete evidence
+  • Missing destination IP/port information limits network context analysis
+  • Targeted user 'yash' is a potential focus for further account activity verification
+
+Summary:
+  The investigation case contains a single SSH brute force alert (rule ID 5763) targeting user 'yash' on UbuntuHost. While MITRE technique T1110 (Brute Force) is associated with the event, the absence of destination IP/port details and authentication results limits correlation possibilities. Threat intelligence indicates both source and endpoint IPs are reserved with no malicious reputation. The targeted user 'yash' warrants further scrutiny despite no confirmed compromise.
+
+----------------------------------------------------------------------
+DEEP INVESTIGATION
+----------------------------------------------------------------------
+
+Investigation Findings:
+
+  • [CONFIRMED | HIGH]
+    The alert indicates multiple failed SSH authentication attempts targeting user 'yash' on the UbuntuHost endpoint.
+
+  • [INFERENCE | MEDIUM]
+    The MITRE technique T1110 (Brute Force) is explicitly linked to the alert rule ID 5763, suggesting a potential credential access attempt.
+
+  • [CONFIRMED | MEDIUM]
+    The source IP (10.68.224.10) and endpoint IP (10.68.224.38) are marked as 'Reserved' in threat intelligence with no malicious reputation.
+
+  • [UNCERTAIN | HIGH]
+    The absence of destination IP/port information and authentication results limits the ability to determine if this is part of a larger attack pattern.
+
+Activity Summary:
+  The sshd service on UbuntuHost (IP 10.68.224.38) detected multiple failed authentication attempts targeting user 'yash' via SSH from source IP 10.68.224.10. The alert is categorized as a brute force attack (MITRE T1110) based on the rule and technique association, but no successful login or additional malicious activity was observed. Threat intelligence indicates both IPs are reserved with no malicious reputation, but destination network details are missing, preventing full contextual analysis.
+
+Evidence Supporting Findings:
+  • Security alert with rule ID 5763 indicating sshd brute force attack with failed authentication attempts
+  • MITRE technique T1110 (Brute Force) association
+  • Threat intelligence indicators for IPs 10.68.224.10 and 10.68.224.38
+  • Targeted user 'yash' in authentication context
+
+Evidence Gaps:
+  • Destination IP and port information in network data
+  • Authentication result details
+  • Timeline entries
+  • Additional evidence entries
+  • Threat intelligence data
+  • Findings documentation
+
+Recommended Investigation Next Steps:
+  • Verify account activity for user 'yash' on the UbuntuHost endpoint
+  • Investigate the source IP (10.68.224.10) for potential spoofing or misconfiguration
+  • Collect and analyze network traffic logs to identify destination IP/port details
+  • Check for additional SSH-related alerts or logs correlating to this event
+  • Validate if the MITRE technique T1110 is appropriately applied to this case
+
+----------------------------------------------------------------------
+COUNTER-ANALYSIS
+----------------------------------------------------------------------
+
+Challenges:
+
+  • Strength: MEDIUM
+    Finding Challenged:
+      The alert is categorized as a brute force attack (MITRE T1110) based on the rule and technique association.
+    Challenge:
+      The conclusion assumes the repeated SSH failures are malicious without confirming the intent or pattern of the attempts. The alert's rule may trigger for legitimate user errors or misconfigurations.
+    Alternative Explanation:
+      The repeated failures could result from an authorized user entering incorrect credentials multiple times, such as during a password reset or testing.
+
+  • Strength: MEDIUM
+    Finding Challenged:
+      The source IP (10.10.10.10) is assumed to be part of a potential spoofing or misconfiguration.
+    Challenge:
+      The IP is marked as 'reserved' in threat intelligence, but this does not confirm malicious intent. Internal IPs could be legitimate or misconfigured without indicating an attack.
+    Alternative Explanation:
+      The IP may belong to a trusted internal system or a misconfigured endpoint with no malicious intent.
+
+Assumptions Identified:
+  • The MITRE technique T1110 (Brute Force) is applied without confirming the attack pattern or volume of attempts.
+  • The 'reserved' status of the source IP implies malicious activity, despite no evidence of spoofing or external origin.
+  • The repeated failures are definitively tied to a credential-guessing attack without verifying the user's intent.
+
+Supporting Factors:
+  • The alert's rule (ID 5763) is explicitly tied to brute-force detection.
+  • The high-severity classification aligns with typical brute-force indicators.
+  • The targeted user 'yash' is a common username that may attract automated attacks.
+
+Uncertainties:
+  • The absence of destination IP/port details prevents determining if this is part of a larger attack chain.
+  • Authentication results (success/failure) are not explicitly documented in the case.
+  • The 'reserved' status of the source IP does not confirm or deny its legitimacy or misuse.
+
+Recommended Verifications:
+  • Check adjacent SSH logs for patterns (e.g., time intervals, IP sources) to confirm brute-force behavior.
+  • Verify the privileges and activity history of the 'yash' account on the endpoint.
+  • Confirm the source IP's network context (internal/external) and validate its 'reserved' status in internal systems.
+  • Review related alerts or logs for correlation with this event.
+  • Validate whether the MITRE technique T1110 is appropriately applied to this case based on observed behavior.
+
+Counter-Analysis Summary:
+  The investigation identifies potential brute-force activity based on the alert's rule and MITRE technique, but the conclusions rely on incomplete evidence. Repeated SSH failures could stem from legitimate user errors or misconfigurations, and the source IP's 'reserved' status does not confirm malicious intent. Further verification of user activity, network context, and correlation with other events is required to resolve uncertainties.
+
+======================================================================
+                      FINAL ASSESSMENT
+======================================================================
+
+Verdict        : SUSPICIOUS
+Confidence     : MEDIUM
+Escalation     : YES
+
+Summary:
+  The case involves a suspicious SSH brute force alert targeting user 'yash' with incomplete evidence, raising concerns about potential credential guessing but lacking definitive malicious indicators.
+
+Decision Reasoning:
+  • The Wazuh alert (rule ID 5763) and MITRE T1110 association indicate potential brute-force activity, which is a suspicious indicator.
+  • Threat intelligence confirms both source and endpoint IPs are 'Reserved' with no malicious reputation, reducing immediate malicious intent.
+  • The absence of destination IP/port details and authentication results prevents full contextual analysis, leaving uncertainty about the attack's scope.
+  • The targeted user 'yash' is not inherently privileged, and repeated failures could stem from legitimate credential attempts (e.g., password resets).
+
+Key Evidence:
+  • Wazuh alert for SSH brute force with failed authentication attempts
+  • MITRE T1110 (Brute Force) association
+  • Targeted user 'yash' in authentication context
+
+Counter Evidence:
+  • Threat intelligence indicates both IPs are 'Reserved' with no malicious reputation
+  • Possibility of legitimate user activity (e.g., password reset attempts)
+
+Uncertainties:
+  • Missing destination IP/port details limit network context analysis
+  • Lack of authentication results prevents confirmation of successful login
+  • Insufficient evidence to definitively classify as malicious or benign
+
+======================================================================
+                  SENTINELCHAIN COMPLETE
+======================================================================
+
+Case ID        : SC-0001
+Verdict        : SUSPICIOUS
+Confidence     : MEDIUM
+Escalation     : YES
